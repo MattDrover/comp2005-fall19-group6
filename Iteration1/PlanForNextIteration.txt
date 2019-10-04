@@ -1,0 +1,5 @@
+Plan for next iteration:
+-Begin implementing basic functionality of the Blokus game.
+-Possibly make changes to use case descriptions, UI sketches, etc. based on feedback and
+ experience gained while implementing the game.
+-Break down parts of the game into classes, methods, etc. that group members can work on.
