@@ -1,0 +1,24 @@
+
+
+5 brief use cases 
+
+PLACING A BLOCK
+The system verify that the first block placed on the board by each player will be placed on the corner square. The system 
+allows the players to rotate a block at anytime before placing it to their desired location. The player will attempt to place 
+a block and the system will verify if blocks of same colour only touch on corners before succefully placing it
+
+THE GAMEPLAY
+The system will provide each player with a set 21 different blocks. The player will select their desired block andplace it where
+they desire. The system will validate the move and when the player succefully places a block, the system will move on to the next player 
+
+ENDING THE GAME
+the players will place blocks on the board until there is no more space to succesfully place a block. The system will notify the players
+that the game has ended and determine the winner
+
+DETERMINING THE WINNER
+the players will select option of how to determine the winner. The system will determine the winner according to the selected option 
+
+SAVING THE GAME
+The system will save all the progress made by players and end the game to continue later. The player whose turn it was will be the first 
+to play when they decide to continue the game later     
+
