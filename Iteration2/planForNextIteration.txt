@@ -1,0 +1,10 @@
+Plan for next iteration:
+
+Use Cases
+-code the save/load a game logic (Yimiao)
+-implement scoring calculation (Conrad)
+
+Meeting
+-we meet online via our WhatsApp group
+
+
