@@ -158,7 +158,7 @@ public class Blokus extends JFrame implements java.io.Serializable{
 					  }
 				  } 
 			  }
-        //System.out.println(count);
+        
 		if (count >=1) {return true;}
 		else {
 			players[turn].continuePlay = false;
@@ -377,9 +377,9 @@ public class Blokus extends JFrame implements java.io.Serializable{
          exit.setFont(new Font("Serif", Font.PLAIN,20));
          exit.addActionListener(new exitListener());
          
-         //surrender = new JButton("Surrender");
-         //surrender.setFont(new Font("Serif", Font.PLAIN,20));
-         //surrender.addActionListener(new surrenderListener());
+         surrender = new JButton("Surrender");
+         surrender.setFont(new Font("Serif", Font.PLAIN,20));
+         surrender.addActionListener(new surrenderListener());
          cons.fill = GridBagConstraints.HORIZONTAL; 
          cons.weighty = 0.5;
          cons.gridx = 0;
@@ -394,7 +394,7 @@ public class Blokus extends JFrame implements java.io.Serializable{
          rightPanel.add(hint,cons);
          cons.gridx = 0;
          cons.gridy = 3;  
-         //rightPanel.add(surrender,cons);
+         rightPanel.add(surrender,cons);
          cons.gridx = 0;
          cons.gridy = 3;  
          rightPanel.add(save,cons);
@@ -732,7 +732,7 @@ public class Blokus extends JFrame implements java.io.Serializable{
               }
               if(numOfHumanPlayer + numOfComputerPlayer == 3) {
             	  StringBuffer resultInfo = new StringBuffer();
-            	  int minNumSquare = 100;
+            	  int minNumSquare = 1000;
             	  String winner ="";
             	  for (int i = 0; i < NUMOFCOLOR-1; i++)
             	  {   
@@ -757,7 +757,7 @@ public class Blokus extends JFrame implements java.io.Serializable{
               //(numOfHumanPlayer + numOfComputerPlayer == 4)
               else {
             	  StringBuffer resultInfo = new StringBuffer();
-            	  int minNumSquare = 100;
+            	  int minNumSquare = 1000;
             	  String winner ="";
             	  for (int i = 0; i < NUMOFCOLOR; i++)
             	  {   
@@ -771,7 +771,10 @@ public class Blokus extends JFrame implements java.io.Serializable{
             		  resultInfo.append("\n");
             		  if(currentNumSquare < minNumSquare) {
             			  minNumSquare = currentNumSquare;
+            			  
             			  winner = "Player"+ temp + " "+ Board.getPieceColor(getPlayerColor(i));
+            			 
+            			  
     	            }
     	            
     	         }
@@ -808,7 +811,7 @@ public class Blokus extends JFrame implements java.io.Serializable{
               }
               if(numOfHumanPlayer + numOfComputerPlayer == 3) {
       	         StringBuffer resultInfo = new StringBuffer();
-      	         int maxScore = 0;
+      	         int maxScore = -10000;
       	         String winner ="";
       	         for (int i = 0; i < NUMOFCOLOR-1; i++)
       	         {   
@@ -831,7 +834,7 @@ public class Blokus extends JFrame implements java.io.Serializable{
               //(numOfHumanPlayer + numOfComputerPlayer == 4)
               else {
      	         StringBuffer resultInfo = new StringBuffer();
-     	         int maxScore = 0;
+     	         int maxScore = -10000;
      	         String winner ="";
      	         for (int i = 0; i < NUMOFCOLOR; i++)
      	         {   
