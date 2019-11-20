@@ -47,10 +47,11 @@ public class SettingsMenu extends JFrame {
 		
 		colorYes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(null, "Color deficiency feature Activated", "Color Deficiency", JOptionPane.INFORMATION_MESSAGE, null);
+				//JOptionPane.showMessageDialog(null, "Color deficiency feature Activated", "Color Deficiency", JOptionPane.INFORMATION_MESSAGE, null);
 				//code here
 				colorDef = true;
 				new SelectColorMenu();
+				
 			}
 			});
 		
@@ -213,6 +214,11 @@ public class SettingsMenu extends JFrame {
 
     
         getContentPane().add(background);
+	}
+
+	public static boolean getShouldAdd() {
+		
+		return hint;
 	}
 
 }

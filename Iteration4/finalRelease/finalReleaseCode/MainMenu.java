@@ -51,7 +51,6 @@ public class MainMenu extends JFrame {
 		load.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Blokus().load();
-				setVisible(false);
 				return;
 			}
 			}); 

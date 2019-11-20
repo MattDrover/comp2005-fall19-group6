@@ -99,7 +99,7 @@ public class SelectColorMenu extends JFrame {
         background.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         
-        lbt = new JLabel("Please select 4 colour of the Blokus pieces");
+        lbt = new JLabel("Please select the 4 colors of the Blokus pieces");
         lbt.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
         lbt.setForeground(Color.WHITE);
         first = new JLabel("First: ");

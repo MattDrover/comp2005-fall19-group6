@@ -24,6 +24,7 @@ public class Blokus extends JFrame implements java.io.Serializable{
 	private String difficulty;
 	private boolean hints;
 	private static boolean colourDefi;
+	private boolean shouldAdd;
 
 	private Board board;
 	private Player[] players;
@@ -45,7 +46,7 @@ public class Blokus extends JFrame implements java.io.Serializable{
     //Label
 	private JLabel label;
 	private JLabel playerStatLabel;
-	private JLabel turnLabel;
+	private JTextField turnLabel;
 	private JLabel scoreLabel;
 	
 	private ImageIcon boardImage;
@@ -100,7 +101,6 @@ public class Blokus extends JFrame implements java.io.Serializable{
 		hints = hintOption;
 		colourDefi = colorDef;
 		difficulty = diff;
-		
 		players = new Player[NUMOFCOLOR];
 		players[0] = new Player(Board.BLUE);
 		players[1] = new Player(Board.YELLOW);
@@ -158,7 +158,7 @@ public class Blokus extends JFrame implements java.io.Serializable{
 					  }
 				  } 
 			  }
-        
+        //System.out.println(count);
 		if (count >=1) {return true;}
 		else {
 			players[turn].continuePlay = false;
@@ -167,13 +167,6 @@ public class Blokus extends JFrame implements java.io.Serializable{
 		}
 	//argument: players[turn]
 	private void getHint(Player p) {
-		if(hints == false) {
-			StringBuffer hintInfo = new StringBuffer();
-			hintInfo.append("Hint option disabled.");
-			JOptionPane.showMessageDialog(this, hintInfo.toString(), "Hint!", JOptionPane.INFORMATION_MESSAGE );
-			JOptionPane.getRootFrame().dispose();  
-			return;
-		}
 		
 			for (int i = 0; i < p.pieces.size(); i++){
 				for(int w = 0; w < 20; w++) {
@@ -276,7 +269,6 @@ public class Blokus extends JFrame implements java.io.Serializable{
             	save();
             }
          }
-         
          class loadListener implements ActionListener
          {
             public void actionPerformed(ActionEvent event)
@@ -284,6 +276,7 @@ public class Blokus extends JFrame implements java.io.Serializable{
             	load();
             }
          }
+         
          class exitListener implements ActionListener
          {
             public void actionPerformed(ActionEvent event)
@@ -310,22 +303,33 @@ public class Blokus extends JFrame implements java.io.Serializable{
          //top panel
          //picture of the game's logo on the top
          picPanel = new JPanel();
+         BorderLayout layout = new BorderLayout();
+         
+         picPanel.setLayout(layout);
+         
          URL url = Blokus.class.getResource("resources/blokusPic.png");
          ImageIcon blokusPic = new ImageIcon(url);
          JLabel picLabel = new JLabel(blokusPic);
-         picPanel.add(picLabel);
+         picPanel.add(picLabel, BorderLayout.CENTER);
+         turnLabel = new JTextField("DISPLAY FOR TURNS ETC...");
+         turnLabel.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+         turnLabel.setEditable(false);
+         turnLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
+        // scoreLabel = new JLabel("");
+         
+        // picPanel.add(turnLabel, BorderLayout.SOUTH);
 
          //left panel
          //all n-square pieces 
          piecePanel = new JPanel();
          piecePanel.setLayout(new BoxLayout(piecePanel, BoxLayout.PAGE_AXIS));
          JScrollPane scroll = new JScrollPane(piecePanel);
-         scroll.getVerticalScrollBar().setUnitIncrement(Piece.defaultSize / 3);
-         scroll.setPreferredSize(new Dimension(Piece.defaultSize +20, Board.DISPLAY_SIZE - 30));
+         scroll.getVerticalScrollBar().setUnitIncrement(Piece.defaultSize / 5);
+         scroll.setPreferredSize(new Dimension(Piece.defaultSize + 20, Board.DISPLAY_SIZE));
 
          //contain piecePanel and rotate button
          leftPanel = new JPanel();
-         leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
+         //leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.PAGE_AXIS));
          leftPanel.add(scroll);
          //leftPanel.add(rotate);
          //leftPanel.add(flip);
@@ -338,86 +342,99 @@ public class Blokus extends JFrame implements java.io.Serializable{
          label.addMouseListener(bListener);
          label.addMouseMotionListener(bListener);
          boardPanel.add(label);
+         boardPanel.setPreferredSize(new Dimension(500,494));
+         
+         
+         
          
          //right panel
          //rightPanel contains information of the game, function 'hint','save',and 'exit'.
          rightPanel = new JPanel();
-         //rightPanel.setLayout(new BoxLayout(rightPanel,BoxLayout.PAGE_AXIS));
-         rightPanel.setLayout(new GridBagLayout());
-         GridBagConstraints cons = new GridBagConstraints(); 
+         rightPanel.setLayout(new FlowLayout());
+         rightPanel.setOpaque(false);
          //infoLabel displayed on the rightPanel
          //infoLabel displayed based on the choices of different number of human players and computer players from previous menu 
          
          //need to be edited later
-         turnLabel = new JLabel("");
-         turnLabel.setFont(new Font("Serif", Font.PLAIN,22));
-         scoreLabel = new JLabel("");
+         
          
          rotate = new JButton("Rotate");
-         rotate.setFont(new Font("Serif", Font.PLAIN,22));
+         rotate.setFont(new Font("Berlin Sans FB", Font.BOLD, 20));
          rotate.setPreferredSize(new Dimension(Piece.defaultSize, 30));
+         rotate.setBackground(Color.WHITE);
+ 		 rotate.setForeground(Color.BLACK);
          rotate.addActionListener(new rotateListener());
+         
          flip = new JButton("Flip");
-         flip.setFont(new Font("Serif", Font.PLAIN,22));
+         flip.setFont(new Font("Berlin Sans FB", Font.BOLD, 20));
          flip.setPreferredSize(new Dimension(Piece.defaultSize, 30));
+         flip.setBackground(Color.WHITE);
+ 		 flip.setForeground(Color.BLACK);
          flip.addActionListener(new flipListener());
          
-         hint = new JButton("Need a hint?");
-         hint.setFont(new Font("Serif", Font.PLAIN,20));
-         hint.addActionListener(new hintListener());
+         surrender = new JButton("Surrender");
+         surrender.setFont(new Font("Berlin Sans FB", Font.BOLD,20));
+         surrender.setPreferredSize(new Dimension(Piece.defaultSize, 30));
+         surrender.setBackground(Color.WHITE);
+ 		 surrender.setForeground(Color.BLACK);
+         surrender.addActionListener(new surrenderListener());
+         
+         
+         hint = new JButton("Hint?");
+         hint.setFont(new Font("Berlin Sans FB", Font.BOLD, 17));
+         hint.setBackground(Color.WHITE);
+ 		 hint.setForeground(Color.BLACK);
+ 		 hint.addActionListener(new hintListener());
+ 		 
+         load = new JButton("Load");
+         load.setFont(new Font("Berlin Sans FB", Font.BOLD, 17));
+         load.setBackground(Color.WHITE);
+         load.setForeground(Color.BLACK);
+         load.addActionListener(new loadListener());
+ 		 
+         
          save = new JButton("Save");
-         save.setFont(new Font("Serif", Font.PLAIN,20));
+         save.setFont(new Font("Berlin Sans FB", Font.BOLD, 17));
+         save.setBackground(Color.WHITE);
+ 		 save.setForeground(Color.BLACK);
          save.addActionListener(new saveListener());
          
-         load = new JButton("Load");
-         load.setFont(new Font("Serif", Font.PLAIN,20));
-         load.addActionListener(new loadListener());
-         
          exit = new JButton("Exit");
-         exit.setFont(new Font("Serif", Font.PLAIN,20));
+         exit.setFont(new Font("Berlin Sans FB", Font.BOLD, 17));
+         exit.setBackground(Color.WHITE);
+ 		 exit.setForeground(Color.BLACK);
          exit.addActionListener(new exitListener());
          
-         surrender = new JButton("Surrender");
-         surrender.setFont(new Font("Serif", Font.PLAIN,20));
-         surrender.addActionListener(new surrenderListener());
-         cons.fill = GridBagConstraints.HORIZONTAL; 
-         cons.weighty = 0.5;
-         cons.gridx = 0;
-         cons.gridy = 0;
-         rightPanel.add(rotate,cons);
          
-         cons.gridx = 0;
-         cons.gridy = 1;
-         rightPanel.add(flip,cons);
-         cons.gridx = 0;
-         cons.gridy = 2;         
-         rightPanel.add(hint,cons);
-         cons.gridx = 0;
-         cons.gridy = 3;  
-         rightPanel.add(surrender,cons);
-         cons.gridx = 0;
-         cons.gridy = 3;  
-         rightPanel.add(save,cons);
-         cons.gridx = 0;
-         cons.gridy = 4;  
-         rightPanel.add(load,cons);
-         cons.gridx = 0;
-         cons.gridy = 5;  
-         rightPanel.add(exit,cons);
-         cons.gridx = 0;
-         cons.gridy = 6;  
-         rightPanel.add(turnLabel,cons);
+         //rightPanel.add(turnLabel);
+         rightPanel.add(rotate);
+         rightPanel.add(flip);
+         rightPanel.add(surrender);
+         rightPanel.add(save);
+         rightPanel.add(load);
+         rightPanel.add(hint);
+         
+         if(!SettingsMenu.getShouldAdd()) 
+         {
+        	 hint.setVisible(false);
+         }
+         
+         rightPanel.add(exit);
+         
+         
+         
          
          //pack all panel
          totalPanel = new JPanel();
          totalPanel.setLayout(new BorderLayout());
          totalPanel.add(picPanel,BorderLayout.NORTH);
-         totalPanel.add(leftPanel,BorderLayout.WEST);
+         totalPanel.add(leftPanel,BorderLayout.EAST);
          totalPanel.add(boardPanel,BorderLayout.CENTER);
-         totalPanel.add(rightPanel,BorderLayout.EAST);         
+         totalPanel.add(rightPanel,BorderLayout.SOUTH);         
          getContentPane().add(totalPanel);
          
          pack();
+         setLocationRelativeTo(null);
          setVisible(true);
       }
       private void setBoard(Board n) {
@@ -560,18 +577,25 @@ public class Blokus extends JFrame implements java.io.Serializable{
       }
 
       private void setAltTurn(int atTurn) {
+    	  
 		this.altTurn = atTurn;
 		
 	}
       private void setScoreSetting(String tempScoreSetting) {
+    	  
     	  this.scoreSetting = tempScoreSetting;
+    	  
     	  }
       private void setTurn(int turnNum) {
+    	  
 		this.turn = turnNum;
+		
 		}
       private void exit() {
+    	  
     	  setVisible(false);
-    	  //System.exit(0);
+    	  
+    	 
     	  }
       private void drawBoard(){
          boardImage.setImage(board.render());
@@ -580,7 +604,7 @@ public class Blokus extends JFrame implements java.io.Serializable{
       
       private void drawBorder(){
          JComponent piece = (JComponent) piecePanel.getComponent(pieceIndex);
-         piece.setBorder(BorderFactory.createLineBorder(Color.YELLOW));
+         piece.setBorder(BorderFactory.createLineBorder(Color.CYAN));
          }
       
       private void clearBorder(){
@@ -607,9 +631,11 @@ public class Blokus extends JFrame implements java.io.Serializable{
          public void mouseEntered(MouseEvent e){}
          public void mouseExited(MouseEvent e){}
       }
+      
       public static boolean getColourDefi(){
     	  return colourDefi;
       }
+      
       private void startNewTurn(){
          turn++;
          turn %= NUMOFCOLOR;
@@ -671,7 +697,7 @@ public class Blokus extends JFrame implements java.io.Serializable{
 				     pieceIndex =board.hardComputerPlacePiece(players[turn].pieces, players[turn].firstMove, scoreSetting, players[turn].getPiecesSize(), players[turn]);
         		 }
 
-        		drawBoard();
+                drawBoard();
                 players[turn].pieces.remove(pieceIndex);
                 players[turn].firstMove = false;
                 //pieces remained
@@ -727,7 +753,9 @@ public class Blokus extends JFrame implements java.io.Serializable{
      	         if(blueRed < yelloGreen) {winner = "Player(Blue & red) ";}
      	         else {winner = "Player(Yellow & green)";}
      	         resultInfo.append("Winner is " + winner);
+     	        // turnLabel.setText(resultInfo.toString());
      	         JOptionPane.showMessageDialog(this, resultInfo.toString(), "Game Result", JOptionPane.INFORMATION_MESSAGE );
+     	        // JOptionPane.getRootFrame().dispose(); 
      	         System.exit(0); 
               }
               if(numOfHumanPlayer + numOfComputerPlayer == 3) {
@@ -751,8 +779,12 @@ public class Blokus extends JFrame implements java.io.Serializable{
     	            
     	         }
     	         resultInfo.append("Winner is " + winner);
+    	        
+    	         
     	         JOptionPane.showMessageDialog(this, resultInfo.toString(), "Game Result", JOptionPane.INFORMATION_MESSAGE );
+    	       //  JOptionPane.getRootFrame().dispose(); 
     	         System.exit(0); 
+    	         
               }
               //(numOfHumanPlayer + numOfComputerPlayer == 4)
               else {
@@ -779,8 +811,11 @@ public class Blokus extends JFrame implements java.io.Serializable{
     	            
     	         }
     	         resultInfo.append("Winner is " + winner);
+    	         //turnLabel.setText(resultInfo.toString());
     	         JOptionPane.showMessageDialog(this, resultInfo.toString(), "Game Result", JOptionPane.INFORMATION_MESSAGE );
+    	         //JOptionPane.getRootFrame().dispose(); 
     	         System.exit(0); 
+    	         
               }
     	  }
     	  //advanced scoring
@@ -806,7 +841,9 @@ public class Blokus extends JFrame implements java.io.Serializable{
             	  if(blueRed > yelloGreen) {winner = "Player(Blue & red) ";}
             	  else {winner = "Player(Yellow & green)";}
             	  resultInfo.append("Winner is " + winner);
+            	 // turnLabel.setText(resultInfo.toString());
             	  JOptionPane.showMessageDialog(this, resultInfo.toString(), "Game Result", JOptionPane.INFORMATION_MESSAGE );
+            	 // JOptionPane.getRootFrame().dispose(); 
             	  System.exit(0); 
               }
               if(numOfHumanPlayer + numOfComputerPlayer == 3) {
@@ -828,7 +865,9 @@ public class Blokus extends JFrame implements java.io.Serializable{
       	            
       	         }
       	         resultInfo.append("Winner is " + winner);
+      	        // turnLabel.setText(resultInfo.toString());
       	         JOptionPane.showMessageDialog(this, resultInfo.toString(), "Game Result", JOptionPane.INFORMATION_MESSAGE );
+      	         //JOptionPane.getRootFrame().dispose(); 
       	         System.exit(0);             	  
               }
               //(numOfHumanPlayer + numOfComputerPlayer == 4)
@@ -851,8 +890,12 @@ public class Blokus extends JFrame implements java.io.Serializable{
      	            
      	         }
      	         resultInfo.append("Winner is " + winner);
+     	       //  turnLabel.setText(resultInfo.toString());
      	         JOptionPane.showMessageDialog(this, resultInfo.toString(), "Game Result", JOptionPane.INFORMATION_MESSAGE );
-     	         System.exit(0); 
+     	         //JOptionPane.getRootFrame().dispose(); 
+     	         
+     	         new MainMenu();
+     	         System.exit(0);
               }
    		  
     	  }

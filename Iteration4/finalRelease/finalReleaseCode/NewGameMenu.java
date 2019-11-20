@@ -19,11 +19,11 @@ import javax.swing.JTextField;
 public class NewGameMenu extends JFrame {
 	private JButton p1, p2, p3, p4, easy, medium, hard, start, exit;
 	private JLabel background, numPlayer, difficulty;
-	private JPanel panelPlayer, panelDifficulty, panelStart, bigPanel;
+	private JPanel panelPlayer, panelDifficulty, panelStart, panelInfo, bigPanel;
 	private GridBagConstraints gbc;
 	private JTextField info;
 	private int numHuman, numComp;
-	private String diff;
+	static String diff;
 	
 	public NewGameMenu() 
 	{
@@ -152,27 +152,27 @@ public class NewGameMenu extends JFrame {
         bigPanel.setLayout(new BorderLayout());
         bigPanel.setOpaque(false);
 		
-		numPlayer = new JLabel("Num of HumPlayers:");
-		numPlayer.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+		numPlayer = new JLabel("Number of Human Players :");
+		numPlayer.setFont(new Font("Berlin Sans FB", Font.PLAIN, 11));
 		numPlayer.setForeground(Color.WHITE);
 		
 		p1 = new JButton("1");
-		p1.setFont(new Font("Berlin Sans FB", Font.BOLD, 17));
+		p1.setFont(new Font("Berlin Sans FB", Font.BOLD, 15));
 		p1.setBackground(Color.WHITE);
 		p1.setForeground(Color.BLACK);
 		
 		p2 = new JButton("2");
-		p2.setFont(new Font("Berlin Sans FB", Font.BOLD, 17));
+		p2.setFont(new Font("Berlin Sans FB", Font.BOLD, 15));
 		p2.setBackground(Color.WHITE);
 		p2.setForeground(Color.BLACK);
 		
 		p3 = new JButton("3");
-		p3.setFont(new Font("Berlin Sans FB", Font.BOLD, 17));
+		p3.setFont(new Font("Berlin Sans FB", Font.BOLD, 15));
 		p3.setBackground(Color.WHITE);
 		p3.setForeground(Color.BLACK);
 		
 		p4 = new JButton("4");
-		p4.setFont(new Font("Berlin Sans FB", Font.BOLD, 17));
+		p4.setFont(new Font("Berlin Sans FB", Font.BOLD, 15));
 		p4.setBackground(Color.WHITE);
 		p4.setForeground(Color.BLACK);
 		
@@ -219,21 +219,30 @@ public class NewGameMenu extends JFrame {
 		
 		
 		start = new JButton("Start");
-		start.setFont(new Font("Berlin Sans FB", Font.BOLD, 17));
+		start.setFont(new Font("Berlin Sans FB", Font.BOLD, 15));
 		start.setBackground(Color.WHITE);
 		start.setForeground(Color.BLACK);
 		
 
 		exit = new JButton("Exit");
-		exit.setFont(new Font("Berlin Sans FB", Font.BOLD, 17));
+		exit.setFont(new Font("Berlin Sans FB", Font.BOLD, 15));
 		exit.setBackground(Color.WHITE);
 		exit.setForeground(Color.BLACK);
+		
+		info = new JTextField("", 20);
+		info.setEditable(false);
+		info.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
 		
 		panelStart = new JPanel();
 		panelStart.setLayout(new FlowLayout());
 		panelStart.setOpaque(false);
+		
+		
 		panelStart.add(start);
 		panelStart.add(exit);
+		
+		
+		
 		
 		bigPanel.add(panelStart, BorderLayout.SOUTH);
 		

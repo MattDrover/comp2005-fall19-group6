@@ -17,9 +17,9 @@ public class Board implements java.io.Serializable
 {
 
    
-   public static final Color COLOROFBOARD = new Color(255,250,240);
+   public static final Color COLOROFBOARD = new Color(250,250,250);
    public static final Color COLOROFLINE = Color.BLACK;
-   public static final String ERRORPROMPT= "Illegal Move!";
+   public static final String ERRORPROMPT= "Illegal! Please reconsider your move";
    
    //grids of the board
    private int[][] grid;
@@ -145,7 +145,6 @@ public class Board implements java.io.Serializable
    //{
    //   return isLegalMove(currentPiece, nx, ny, false);
    //}
-   
    
    public int computerPlacePiece(LinkedList<Piece> pieceList, boolean firstMover, 
 		   String scoSetting, int pieceSize, Player player) throws IllegalMoveException{
@@ -367,7 +366,6 @@ public class Board implements java.io.Serializable
          }
       }
    }
-
    //placePiece method for the movement that is not the first time
    public void placePiece(Piece currentPiece, int nx, int ny, String scoSetting, int pieceSize, int pieceIndex, Player player) throws IllegalMoveException
    {
@@ -410,25 +408,11 @@ public class Board implements java.io.Serializable
          for (int y = 0; y < SIZEOFBOARD; y++)
          {
             graph.setColor(getColor(grid[x][y]));
-            /////////////////////////////////color deficiency?
-            //if (grid[x][y] == 1) {
-	        //Font font = new Font("Serif", Font.PLAIN, 22);
-	        //graph.setFont(font);
-            //graph.setColor(Color.BLACK);
-            //graph.drawString("G", ((x)*gridSize),((y)*gridSize)); 
-            //graph.setColor(getColor(grid[x][y]));
-            //}
-            ///////////////////////////
-
             if (pieceDisplay[x][y] != NONE)
             {
                graph.setColor(blend(graph.getColor(), getColor(pieceDisplay[x][y]), 0.2f));
-
-
             }
-            
             graph.fillRect(x * gridSize, y * gridSize, gridSize, gridSize);
-            
             graph.setColor(COLOROFLINE);
             graph.drawRect(x * gridSize, y * gridSize, gridSize, gridSize);
             
@@ -439,7 +423,6 @@ public class Board implements java.io.Serializable
                if (getCorner(GREEN).equals(p))
                {
                   graph.setColor(getColor(GREEN));
-
                   corner = true;
                }
                else if (getCorner(BLUE).equals(p))
@@ -460,7 +443,6 @@ public class Board implements java.io.Serializable
                if (corner)
                {
                   graph.fillOval(x * gridSize + gridSize / 2 - gridSize / 6, y * gridSize + gridSize / 2 - gridSize / 6, gridSize / 3, gridSize / 3);
-                
                }
             }
          }
@@ -515,20 +497,20 @@ public class Board implements java.io.Serializable
              if (Blokus.getColourDefi()== true) {
             	return SelectColorMenu.getColor1();
              }
-        	 return new Color(153, 204, 255);}
+        	 return new Color(30, 144, 255);}
          
          case YELLOW: {
              if (Blokus.getColourDefi()== true) {
             	return SelectColorMenu.getColor2();
              }
-        	 return Color.YELLOW;
+        	 return Color.ORANGE;
          }
         	 
          case RED:{
              if (Blokus.getColourDefi()== true) {
             	return SelectColorMenu.getColor3();
              }
-             return new Color(255,102,102);
+             return Color.RED;
          }
         	 
         	 
@@ -536,13 +518,14 @@ public class Board implements java.io.Serializable
              if (Blokus.getColourDefi()== true) {
             	return SelectColorMenu.getColor4();
              }
-        	 return new Color(0,204,102);
+        	 return new Color(0,179,30);
          }
          default: return COLOROFBOARD;
 
          
       }
    }
+   
    
    public static String getPieceColor(int color)
    {

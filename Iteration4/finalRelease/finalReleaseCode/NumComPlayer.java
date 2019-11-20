@@ -106,7 +106,7 @@ public class NumComPlayer extends JFrame{
         bigPanel.setOpaque(false);
 		
 		numPlayer = new JLabel("Number of Computer Players :");
-		numPlayer.setFont(new Font("Berlin Sans FB", Font.PLAIN, 15));
+		numPlayer.setFont(new Font("Berlin Sans FB", Font.PLAIN, 12));
 		numPlayer.setForeground(Color.WHITE);
 		
 		p0 = new JButton("0");
@@ -140,21 +140,21 @@ public class NumComPlayer extends JFrame{
 		playerPanel.setOpaque(false);
 		//playerPanel.add(numPlayer);
 		if(numHumanPlayer ==2| numHumanPlayer ==3) {
-			playerPanel.add(p0);
+			topPanel.add(p0);
 		}
 		if(numHumanPlayer == 1 | numHumanPlayer ==2| numHumanPlayer ==3) {
-			playerPanel.add(p1);
+			topPanel.add(p1);
 		}
 		if(numHumanPlayer == 1 | numHumanPlayer ==2) {
-			playerPanel.add(p2);
+			topPanel.add(p2);
 		}
 		if(numHumanPlayer ==1) {
-			playerPanel.add(p3);
+			topPanel.add(p3);
 		}
 		
 		
 		bigPanel.add(topPanel, BorderLayout.NORTH);
-		bigPanel.add(playerPanel, BorderLayout.CENTER);
+		//bigPanel.add(playerPanel, BorderLayout.CENTER);
 
 
 		exit = new JButton("Exit");
