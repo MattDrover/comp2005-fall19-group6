@@ -1,0 +1,27 @@
+Open Jar file
+
+Go to settings if you want to
+i) change the colors of every player if you have any color deficiencies (by default off)
+ii) Toggle on or off hint button on Blokus Board (by default off)
+iii) Set a different scoring system (Default is basic scoring)
+
+Initialize game
+choose number of players and difficulty
+and done
+
+Saving and Loading:
+
+Works well with human players
+
+Partially load game with computer players, with computer players turn's being skip if load from main menu.
+
+Game should be reinitialise with same number of human and computer players and press load from board GUI and everything will work fine.
+
+
+Game AI:
+
+Works well on all difficulties,
+
+i) easy difficulty let the Ai choose the smallest piece to place
+ii) Medium difficulty being random piece selection (Randomness)
+iii) hard difficulty Ai choose largest and best piece
