@@ -11,12 +11,9 @@ and done
 
 Saving and Loading:
 
-Works well with human players
+Works well with all human players
 
-Partially load game with computer players, with computer players turn's being skip if load from main menu.
-
-Game should be reinitialise with same number of human and computer players and press load from board GUI and everything will work fine.
-
+Odd behaviour : if system is closed completely, loading the game will skip computer turns. But if system is not closed completely (i.e from main menu or closing using the "x") you can still load the game and everything works fine
 
 Game AI:
 
